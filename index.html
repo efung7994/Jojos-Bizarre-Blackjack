@@ -10,18 +10,40 @@
   <script defer src="./js/app.js"></script>
 </head>
 <body>
-  <div class="container">
-		<div id="deck-2" class="card large outline"></div>
-		<div id="deck-1" class="card large shadow back-red"></div>
-	</div>
+
+  <div id="dealer-sum"></div>
+
+  <div class="dealer-container">
+    <div id="dealer-hand">
+      
+    </div>
+    
+  </div>
+
+  <div class="deck-container">
+    <div id="deck-1" class="card large shadow back-red"></div>
+  </div>
+
+  <div class="player-container">
+    <div class="player-hand">
+      <div id="player-deck-1" class="card large outline"></div>
+      <div id="player-deck-2" class="card large outline"></div>
+    </div>
+  </div>
+
+  <div id="player-sum"></div>
+  
+
   <div class="bet-btns">
     <button>Bet</button>
     <button class="dollars1">$1</button>
     <button class="dollars5">$5</button>
     <button class="dollars10">$10</button>
   </div>
+
   <div class="cash">Current Cash: $</div>
   <div class ="bet-money">Current Bet: $</div>
-	<button id="btn" class="btn">Flip Card</button>
+	<button id="start" class="Start">Start</button>
+  <button class="reset">Reset</button>
 </body>
 </html>

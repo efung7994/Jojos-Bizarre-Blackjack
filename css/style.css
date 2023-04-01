@@ -4,12 +4,12 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50vmax;
+  height: 100vmax;
 }
 
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -26,7 +26,7 @@ body {
   box-shadow: 7px 7px 7px 0 rgba(41, 41, 41, 0.95) !important;
 }
 
-.btn {
+.start {
   margin-top: 2vh;
   color: white;
   background-color: #202d7a;
