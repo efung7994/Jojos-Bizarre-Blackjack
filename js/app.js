@@ -51,6 +51,7 @@ let dealerHandEl = document.querySelector('#dealer-hand')
 let dealerDeck2El = document.querySelector('#dealer-deck-2')
 let playerSumEl = document.querySelector('#player-sum')
 let dealerSumEl = document.querySelector('#dealer-sum')
+let drawButtonEl = document.querySelector('#draw-button')
 currentBet.textContent = 'Bet: $' + bet
 currentCash.textContent = 'Cash: $' + cash
 
@@ -59,6 +60,7 @@ dollarBtn1.addEventListener('click', addMoneyToBet1)
 dollarBtn5.addEventListener('click', addMoneyToBet5)
 dollarBtn10.addEventListener('click', addMoneyToBet10)
 startRoundEl.addEventListener('click', startRound)
+drawButtonEl.addEventListener('click', drawCard)
 resetBtn.addEventListener('click', init)
 
 /*------------ Functions ------------*/
@@ -137,19 +139,41 @@ function startRound() {
     cardPullValue2 = parseInt(cardPicked2.match(/[0-9]{2}/g))
     if (isNaN(cardPullValue1) === false){
       cardPullValue1 = cardPullValue1
-      console.log(cardPullValue1)
     } else
     if (isNaN(cardPullValue1) === true) {
+      let searchFaceCards = cardPicked.search(/[J|Q|K]/)
+      if (searchFaceCards === 1) {
       cardPullValue1 = 10
+    } else if (searchFaceCards === -1) { 
+      let searchAceCard = cardPicked.search(/[A]/)
+      if (searchAceCard === 1){
+        if (dealerSum <= 10) {
+          cardPullValue1 = 11
+        } else {
+          cardPullValue1 = 1
+        }
+      }
     } 
+  }
 
     if (isNaN(cardPullValue2) === false){
       cardPullValue2 = cardPullValue2
     } else
     if (isNaN(cardPullValue2) === true) {
+      let searchFaceCards = cardPicked2.search(/[J|Q|K]/)
+      if (searchFaceCards === 1) {
       cardPullValue2 = 10
-    } 
-    
+    } else {
+      let searchAceCard = cardPicked2.search(/[A]/)
+      if (searchAceCard === 1){
+        if (dealerSum <= 10) {
+          cardPullValue2 = 11
+        } else {
+          cardPullValue2 = 1
+        }
+      }
+    }
+  }   
     console.log(cardPullValue1)
     console.log(cardPullValue2)
     dealerSum += cardPullValue1 + cardPullValue2
@@ -161,6 +185,48 @@ function startRound() {
   }
 }
 
+
+function drawCard() {
+  // Used to prevent error on click when no cards are left in deck 1
+  if (deck.length > 0) {  
+
+	  // Randomly select number from total cards remaining
+		let randIdx = Math.floor(Math.random()*deck.length)
+
+		// Assigns card with the random index to a variable   
+	let cardPicked = deck.splice(randIdx, 1)[0]
+    
+	  // Adds card picked to deck 2
+		playerHand.push(cardPicked)
+
+    cardPullValue = parseInt(cardPicked.match(/[0-9]{2}/g))
+    if (isNaN(cardPullValue) === false){
+      cardPullValue = cardPullValue
+    } else
+    if (isNaN(cardPullValue) === true) {
+      let searchFaceCards = cardPicked.search(/[J|Q|K]/)
+      if (searchFaceCards === 1) {
+      cardPullValue = 10
+    } else if (searchFaceCards === -1) { 
+      let searchAceCard = cardPicked.search(/[A]/)
+      if (searchAceCard === 1){
+        if (dealerSum <= 10) {
+          cardPullValue = 11
+        } else {
+          cardPullValue = 1
+        }
+      }
+    } 
+  }   
+    console.log(cardPullValue)
+    playerSum += cardPullValue
+    playerSumEl.textContent = 'player: ' + playerSum
+
+
+	  // Pass card picked to render function to display
+		render(cardPicked)
+  }
+}
 // function handleClick() {
 //   if (deck.length > 0) {
 
