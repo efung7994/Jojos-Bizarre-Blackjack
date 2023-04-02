@@ -98,7 +98,7 @@ function initRound() {
   playerSum = 0
   dealerSum = 0
   blackjack = false
-  winner = false
+  roundEnd = false
   turn = 1
 }
 
@@ -118,7 +118,7 @@ function init() {
   playerSum = 0
   dealerSum = 0
   blackjack = false
-  winner = false
+  roundEnd = false
   turn = 1
   cash = 100
   bet = 0
