@@ -1,30 +1,4 @@
 /*------------ Constants ------------*/
-const entireDeck = [
-  "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-
-
-  // separate cards into suits so that each card will equate to a value when searched through.
-  const spades = entireDeck.filter(function(cardName){
-    onlySpades = cardName.includes('s')
-    return onlySpades
-  })
-
-  const hearts = entireDeck.filter(function(cardName){
-    onlySpades = cardName.includes('h')
-    return onlySpades
-  })
-
-  const diamonds = entireDeck.filter(function(cardName){
-    onlySpades = cardName.includes('d')
-    return onlySpades
-  })
-
-  const clubs = entireDeck.filter(function(cardName){
-    onlySpades = cardName.includes('c')
-    return onlySpades
-  })
-
-
 
 
 /*------------ Variables ------------*/
@@ -40,6 +14,7 @@ let playerHand = []
 let dealerHand = []
 
 /*---- Cached Element References ----*/
+let messageEl = document.querySelector('#message')
 let startRoundEl = document.querySelector('.start')
 let resetBtn = document.querySelector('.reset')
 let currentCash = document.querySelector('.cash')
@@ -48,10 +23,10 @@ let dollarBtn1 = document.querySelector('.dollars1')
 let dollarBtn5 = document.querySelector('.dollars5')
 let dollarBtn10 = document.querySelector('.dollars10')
 let dealerHandEl = document.querySelector('#dealer-hand')
-let dealerDeck2El = document.querySelector('#dealer-deck-2')
 let playerSumEl = document.querySelector('#player-sum')
 let dealerSumEl = document.querySelector('#dealer-sum')
-let drawButtonEl = document.querySelector('#draw-button')
+let standButtonEl = document.querySelector('#stand-button')
+let hitButtonEl = document.querySelector('#hit-button')
 currentBet.textContent = 'Bet: $' + bet
 currentCash.textContent = 'Cash: $' + cash
 
@@ -60,8 +35,9 @@ dollarBtn1.addEventListener('click', addMoneyToBet1)
 dollarBtn5.addEventListener('click', addMoneyToBet5)
 dollarBtn10.addEventListener('click', addMoneyToBet10)
 startRoundEl.addEventListener('click', startRound)
-drawButtonEl.addEventListener('click', drawCard)
+hitButtonEl.addEventListener('click', drawCard)
 resetBtn.addEventListener('click', init)
+standButtonEl.addEventListener('click', stand)
 
 /*------------ Functions ------------*/
 init()
@@ -110,80 +86,39 @@ function init() {
   bet = 0
   currentBet.textContent = 'Bet: $' + bet
   currentCash.textContent = 'Cash: $' + cash
-
+  playerSum = 0
+  dealerSum = 0
+  blackjack = false
+  winner = false
+  turn = 1
+  cash = 100
+  bet = 0
+  playerHand = []
+  dealerHand = []
+  dealerSumEl.textContent = 'Dealer: '
+  playerSumEl.textContent = 'Player: '
+  messageEl.textContent = ' '
 }
 
+function renderBet() {
+  currentBet.textContent = 'Bet: $' + bet
+  currentCash.textContent = 'Cash: $' + cash
+}
 
-
-function render(cardPicked, cardPicked2) {
-  console.log(cardPicked, cardPicked2)
+function render(cardPicked) {
+  console.log(cardPicked)
   
 
 }
 
 function startRound() {
-  // Used to prevent error on click when no cards are left in deck 1
-  if (deck.length > 0) {  
-
-	  // Randomly select number from total cards remaining
-		let randIdx = Math.floor(Math.random()*deck.length)
-
-		// Assigns card with the random index to a variable   
-	  let cardPicked = deck.splice(randIdx, 1)[0]
-    let cardPicked2 = deck.splice(randIdx, 1)[0]
-    
-	  // Adds card picked to deck 2
-		dealerHand.push(cardPicked, cardPicked2)
-
-    cardPullValue1 = parseInt(cardPicked.match(/[0-9]{2}/g))
-    cardPullValue2 = parseInt(cardPicked2.match(/[0-9]{2}/g))
-    if (isNaN(cardPullValue1) === false){
-      cardPullValue1 = cardPullValue1
-    } else
-    if (isNaN(cardPullValue1) === true) {
-      let searchFaceCards = cardPicked.search(/[J|Q|K]/)
-      if (searchFaceCards === 1) {
-      cardPullValue1 = 10
-    } else if (searchFaceCards === -1) { 
-      let searchAceCard = cardPicked.search(/[A]/)
-      if (searchAceCard === 1){
-        if (dealerSum <= 10) {
-          cardPullValue1 = 11
-        } else {
-          cardPullValue1 = 1
-        }
-      }
-    } 
-  }
-
-    if (isNaN(cardPullValue2) === false){
-      cardPullValue2 = cardPullValue2
-    } else
-    if (isNaN(cardPullValue2) === true) {
-      let searchFaceCards = cardPicked2.search(/[J|Q|K]/)
-      if (searchFaceCards === 1) {
-      cardPullValue2 = 10
-    } else {
-      let searchAceCard = cardPicked2.search(/[A]/)
-      if (searchAceCard === 1){
-        if (dealerSum <= 10) {
-          cardPullValue2 = 11
-        } else {
-          cardPullValue2 = 1
-        }
-      }
-    }
-  }   
-    console.log(cardPullValue1)
-    console.log(cardPullValue2)
-    dealerSum += cardPullValue1 + cardPullValue2
-    dealerSumEl.textContent = 'dealer ' + dealerSum
-
-
-	  // Pass card picked to render function to display
-		render(cardPicked, cardPicked2)
-  }
+  // calls the draw card function twice because it causes the player to draw a card twice and dealer to draw twice
+  drawCard()
+  drawCard()
+  dealerDrawCard()
+  dealerDrawCard()
 }
+  
 
 
 function drawCard() {
@@ -196,20 +131,25 @@ function drawCard() {
 		// Assigns card with the random index to a variable   
 	let cardPicked = deck.splice(randIdx, 1)[0]
     
-	  // Adds card picked to deck 2
+	  // Adds card picked to player hand
 		playerHand.push(cardPicked)
-
+    //finds the numerical value of the cards that were picked
     cardPullValue = parseInt(cardPicked.match(/[0-9]{2}/g))
+    // if the card is parsed into a number, it will return that value to the cardPullValue
     if (isNaN(cardPullValue) === false){
       cardPullValue = cardPullValue
     } else
+    // if the card is not a number, a search will be done to find out what card it is
     if (isNaN(cardPullValue) === true) {
+    // searches the string of the card picked and if it is a face card(contains J/Q/K), the value is returned as 10
       let searchFaceCards = cardPicked.search(/[J|Q|K]/)
       if (searchFaceCards === 1) {
       cardPullValue = 10
+    // if the search does not come back with a found string, it will not search for the Ace card
     } else if (searchFaceCards === -1) { 
       let searchAceCard = cardPicked.search(/[A]/)
       if (searchAceCard === 1){
+    // Once found, logic will be applied depending on the sum of the dealer. A will be 1 or 11 whichever one cause the dealer not to lose
         if (dealerSum <= 10) {
           cardPullValue = 11
         } else {
@@ -220,23 +160,68 @@ function drawCard() {
   }   
     console.log(cardPullValue)
     playerSum += cardPullValue
-    playerSumEl.textContent = 'player: ' + playerSum
-
-
-	  // Pass card picked to render function to display
+    playerSumEl.textContent = 'Player: ' + playerSum
+    if (playerSum > 21) {
+      messageEl.textContent = 'YOU LOSE!'
+    }
+     // Pass card picked to render function to display
 		render(cardPicked)
   }
 }
-// function handleClick() {
-//   if (deck.length > 0) {
+    // function is the same as draw card except it places the cards in the dealer's hands
+function dealerDrawCard() {
+   // Used to prevent error on click when no cards are left in deck 1
+    if (deck.length > 0) {  
+  
+      // Randomly select number from total cards remaining
+      let randIdx = Math.floor(Math.random()*deck.length)
+  
+      // Assigns card with the random index to a variable   
+    let cardPicked = deck.splice(randIdx, 1)[0]
+      
+      dealerHand.push(cardPicked)
+  
+      cardPullValue = parseInt(cardPicked.match(/[0-9]{2}/g))
+      if (isNaN(cardPullValue) === false){
+        cardPullValue = cardPullValue
+      } else
+      if (isNaN(cardPullValue) === true) {
+        let searchFaceCards = cardPicked.search(/[J|Q|K]/)
+        if (searchFaceCards === 1) {
+        cardPullValue = 10
+      } else if (searchFaceCards === -1) { 
+        let searchAceCard = cardPicked.search(/[A]/)
+        if (searchAceCard === 1){
+          if (dealerSum <= 10) {
+            cardPullValue = 11
+          } else {
+            cardPullValue = 1
+          }
+        }
+      } 
+    }   
+      console.log(cardPullValue)
+      dealerSum += cardPullValue
+      dealerSumEl.textContent = 'dealer: ' + dealerSum
+       // Pass card picked to render function to display
+      render(cardPicked)
+    }
+  }
 
-//     // Randomly select number from total cards remaining
-//     let randIdx = Math.floor(Math.random() * deck.length)
-//     // Assign card with the random index to a variable
-//     let cardPicked = deck.splice(randIdx, 1)[0]
-//     // Add card picked to deck 2
-//     deck.push(cardPicked)
-//     // Pass card picked to render function to display
-//     render(cardPicked)
-//   }
-// }
+function stand() {
+  while (playerSum >= dealerSum) {
+    dealerDrawCard()
+  }
+  if (dealerSum > playerSum && dealerSum <= 21){
+    messageEl.textContent = 'YOU LOSE!'
+    bet = 0
+  } else if (playerSum <= 21 && dealerSum > 21) {
+    messageEl.textContent = 'YOU WIN!'
+    cash += bet * 1.5
+    bet = 0
+  }
+  renderBet()
+  console.log(cash)
+  console.log(bet)
+}
+
