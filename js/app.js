@@ -6,7 +6,7 @@ let deck = []
 let playerSum = 0
 let dealerSum = 0
 let blackjack = false
-let winner = false
+let roundEnd = false
 let turn = 1
 let cash = 100
 let bet = 0
@@ -19,6 +19,7 @@ let startRoundEl = document.querySelector('.start')
 let resetBtn = document.querySelector('.reset')
 let currentCash = document.querySelector('.cash')
 let currentBet = document.querySelector('.bet-money')
+let betButtonsEl = document.querySelector ('.bet-btns')
 let dollarBtn1 = document.querySelector('.dollars1')
 let dollarBtn5 = document.querySelector('.dollars5')
 let dollarBtn10 = document.querySelector('.dollars10')
@@ -54,6 +55,7 @@ function addMoneyToBet1() {
     cash += 0
     bet += 0
   }
+  startRoundEl.disabled = false
 }
 function addMoneyToBet5() {
   if(cash > 0){
@@ -64,8 +66,8 @@ function addMoneyToBet5() {
   } else {
     cash += 0
     bet += 0
-    
   }
+  startRoundEl.disabled = false
 }
 function addMoneyToBet10() {
   if(cash > 0){
@@ -77,6 +79,7 @@ function addMoneyToBet10() {
     cash += 0
     bet += 0
   }
+  startRoundEl.disabled = false
 }
 
 function initRound() {
@@ -102,6 +105,7 @@ function initRound() {
 function init() {
   deck =[
     "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+    startRoundEl.disabled = true
     playerHandEl.textContent = ''
     dealerHandEl.textContent = ''
   currentBet.textContent = 'Bet: $' + bet
@@ -147,6 +151,8 @@ function startRound() {
   drawCard()
   dealerDrawCard()
   dealerDrawCard()
+  startRoundEl.disabled = true
+  disableBet()
 }
   
 
@@ -180,7 +186,7 @@ function drawCard() {
       let searchAceCard = cardPicked.search(/[A]/)
       if (searchAceCard === 1){
     // Once found, logic will be applied depending on the sum of the dealer. A will be 1 or 11 whichever one cause the dealer not to lose
-        if (dealerSum <= 10) {
+        if (playerSum <= 10) {
           cardPullValue = 11
         } else {
           cardPullValue = 1
@@ -191,9 +197,15 @@ function drawCard() {
     console.log(cardPullValue)
     playerSum += cardPullValue
     playerSumEl.textContent = 'Player: ' + playerSum
+    if (playerSum > 21) {
+      roundEnd = true
+      messageEl.textContent = 'YOU LOSE!'
+      bet = 0
+      roundEnd = true
+      renderBet()
+    }
      // Pass card picked to render function to display
 		renderPlayer(cardPicked)
-    determineWinner()
   }
 }
     // function is the same as draw card except it places the cards in the dealer's hands
@@ -249,22 +261,38 @@ function determineWinner () {
   if (dealerSum > playerSum && dealerSum < 21 || playerSum > 21 || dealerSum === 21){
     messageEl.textContent = 'YOU LOSE!'
     bet = 0
+    roundEnd = true
   } else if (playerSum <= 21 && dealerSum > 21) {
     messageEl.textContent = 'YOU WIN!'
     cash += bet * 1.5
     bet = 0
+    roundEnd = true
   }
   if (playerSum === 21) {
     messageEl.textContent = 'BLACKJACK!'
     cash += bet * 2
     bet = 0
+    roundEnd = true
   }
+  enableBet()
   renderBet()
 }
 
-if (bet === 0){
-  startRoundEl.disabled = true
+function disableBet() {
+  dollarBtn1.disabled = true
+  dollarBtn5.disabled = true
+  dollarBtn10.disabled = true
 }
-if (bet > 0) {
-  startRoundEl.disabled = false
+
+function enableBet() {
+  dollarBtn1.disabled = false
+  dollarBtn5.disabled = false
+  dollarBtn10.disabled = false
 }
+
+if (roundEnd === true) {
+  enableBet()
+  console.log(roundEnd)
+}
+
+
