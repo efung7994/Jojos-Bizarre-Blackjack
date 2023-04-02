@@ -6,7 +6,6 @@ let deck = []
 let playerSum = 0
 let dealerSum = 0
 let blackjack = false
-let roundEnd = false
 let turn = 1
 let cash = 100
 let bet = 0
@@ -16,7 +15,7 @@ let dealerHand = []
 /*---- Cached Element References ----*/
 let messageEl = document.querySelector('#message')
 let startRoundEl = document.querySelector('.start')
-let resetBtn = document.querySelector('.reset')
+let nextRoundBtn = document.querySelector('.next-round')
 let currentCash = document.querySelector('.cash')
 let currentBet = document.querySelector('.bet-money')
 let betButtonsEl = document.querySelector ('.bet-btns')
@@ -39,7 +38,7 @@ dollarBtn5.addEventListener('click', addMoneyToBet5)
 dollarBtn10.addEventListener('click', addMoneyToBet10)
 startRoundEl.addEventListener('click', startRound)
 hitButtonEl.addEventListener('click', drawCard)
-resetBtn.addEventListener('click', init)
+nextRoundBtn.addEventListener('click', initRound)
 standButtonEl.addEventListener('click', stand)
 
 /*------------ Functions ------------*/
@@ -86,6 +85,27 @@ function initRound() {
   deck =[
     "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   
+  //clears the player hand and dealer hand divs so there are no card images
+  playerHandEl.textContent = ''
+  dealerHandEl.textContent = ''
+  currentBet.textContent = 'Bet: $' + bet
+  currentCash.textContent = 'Cash: $' + cash
+  dealerSumEl.textContent = 'Dealer: '
+  playerSumEl.textContent = 'Player: '
+  messageEl.textContent = ' '
+  playerHand = []
+  dealerHand = []
+  playerSum = 0
+  dealerSum = 0
+  enableBet()
+  nextRoundBtn.disabled = true
+}
+
+function init() {
+  deck =[
+    "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  startRoundEl.disabled = true
+  nextRoundBtn.disabled = true
   playerHandEl.textContent = ''
   dealerHandEl.textContent = ''
   currentBet.textContent = 'Bet: $' + bet
@@ -98,30 +118,10 @@ function initRound() {
   playerSum = 0
   dealerSum = 0
   blackjack = false
-  roundEnd = false
-  turn = 1
-}
-
-function init() {
-  deck =[
-    "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-    startRoundEl.disabled = true
-    playerHandEl.textContent = ''
-    dealerHandEl.textContent = ''
-  currentBet.textContent = 'Bet: $' + bet
-  currentCash.textContent = 'Cash: $' + cash
-  dealerSumEl.textContent = 'Dealer: '
-  playerSumEl.textContent = 'Player: '
-  messageEl.textContent = ' '
-  playerHand = []
-  dealerHand = []
-  playerSum = 0
-  dealerSum = 0
-  blackjack = false
-  roundEnd = false
   turn = 1
   cash = 100
   bet = 0
+  roundEnd()
 }
 
 function renderBet() {
@@ -133,13 +133,12 @@ function renderBet() {
 function renderPlayer(cardPicked) {
   let cardImg = playerHandEl.appendChild(document.createElement('div'))
   cardImg.classList.add('card', 'large', cardPicked)
-  console.log(cardPicked)
 }
 
 function renderDealer(cardPicked) {
   let cardImg = dealerHandEl.appendChild(document.createElement('div'))
   cardImg.classList.add('card', 'large', cardPicked)
-  console.log(cardPicked)
+  
   
 
 }
@@ -151,7 +150,10 @@ function startRound() {
   drawCard()
   dealerDrawCard()
   dealerDrawCard()
+  determineWinner()
   startRoundEl.disabled = true
+  hitButtonEl.disabled = false
+  standButtonEl.disabled = false
   disableBet()
 }
   
@@ -194,14 +196,12 @@ function drawCard() {
       }
     } 
   }   
-    console.log(cardPullValue)
     playerSum += cardPullValue
     playerSumEl.textContent = 'Player: ' + playerSum
     if (playerSum > 21) {
-      roundEnd = true
       messageEl.textContent = 'YOU LOSE!'
       bet = 0
-      roundEnd = true
+      roundEnd()
       renderBet()
     }
      // Pass card picked to render function to display
@@ -240,7 +240,6 @@ function dealerDrawCard() {
         }
       } 
     }   
-      console.log(cardPullValue)
       dealerSum += cardPullValue
       dealerSumEl.textContent = 'Dealer: ' + dealerSum
        // Pass card picked to render function to display
@@ -253,28 +252,23 @@ function stand() {
     dealerDrawCard()
   }
   determineWinner()
-  console.log(cash)
-  console.log(bet)
 }
 
 function determineWinner () {
   if (dealerSum > playerSum && dealerSum < 21 || playerSum > 21 || dealerSum === 21){
     messageEl.textContent = 'YOU LOSE!'
     bet = 0
-    roundEnd = true
   } else if (playerSum <= 21 && dealerSum > 21) {
     messageEl.textContent = 'YOU WIN!'
     cash += bet * 1.5
     bet = 0
-    roundEnd = true
-  }
-  if (playerSum === 21) {
+  } else if (playerSum === 21) {
     messageEl.textContent = 'BLACKJACK!'
     cash += bet * 2
     bet = 0
-    roundEnd = true
   }
-  enableBet()
+
+  roundEnd()
   renderBet()
 }
 
@@ -290,9 +284,9 @@ function enableBet() {
   dollarBtn10.disabled = false
 }
 
-if (roundEnd === true) {
-  enableBet()
-  console.log(roundEnd)
+
+function roundEnd() {
+  nextRoundBtn.disabled = false
+  hitButtonEl.disabled = true
+  standButtonEl.disabled = true
 }
-
-
