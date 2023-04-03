@@ -121,6 +121,8 @@ function init() {
   blackjack = false
   startRoundEl.disabled = true
   nextRoundBtn.disabled = true
+  hitButtonEl.disabled = true
+  standButtonEl.disabled = true
   playerHandEl.textContent = ''
   dealerHandEl.textContent = ''
   currentBet.textContent = 'Bet: $' + bet
@@ -150,22 +152,19 @@ function renderPlayer(cardPicked) {
 function renderDealer(cardPicked) {
   let cardImg = dealerHandEl.appendChild(document.createElement('div'))
   cardImg.classList.add('card', 'large', cardPicked)
-  
-  
-
 }
 
 function startRound() {
   // calls the draw card function twice because it causes the player to draw a card twice and dealer to draw twice
   drawCard()
   drawCard()
-  dealerDrawCard()
-  dealerDrawCard()
-  checkBlackjack()
-  startRoundEl.disabled = true
   hitButtonEl.disabled = false
   standButtonEl.disabled = false
+  checkBlackjack()
+  startRoundEl.disabled = true
   disableBet()
+  dealerDrawCard()
+  dealerDrawCard()
 }
   
 
@@ -212,6 +211,7 @@ function drawCard() {
     playerSum += cardPullValue
     if (playerSum === 21) {
       blackjack = true
+      checkBlackjack()
     }
     playerSumEl.textContent = 'Player: ' + playerSum
     if (playerSum > 21) {
@@ -220,7 +220,6 @@ function drawCard() {
       roundEnd()
       renderBet()
     }
-    checkBlackjack()
     // Pass card picked to render function to display
 		renderPlayer(cardPicked)
   }
@@ -258,6 +257,12 @@ function dealerDrawCard() {
       } 
     }   
       dealerSum += cardPullValue
+      if (dealerSum === 21) {
+        messageEl.textContent = 'YOU LOSE!'
+        bet = 0
+        roundEnd()
+        renderBet()
+      }
       dealerSumEl.textContent = 'Dealer: ' + dealerSum
        // Pass card picked to render function to display
       renderDealer(cardPicked)
