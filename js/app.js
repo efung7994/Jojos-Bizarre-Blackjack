@@ -6,8 +6,7 @@ let deck = []
 let playerSum = 0
 let dealerSum = 0
 let blackjack = false
-let turn = 1
-let cash = 100
+let cash = 9
 let bet = 0
 let playerHand = []
 let dealerHand = []
@@ -50,38 +49,47 @@ standButtonEl.addEventListener('click', stand)
 init()
 
 function addMoneyToBet1() {
-  if(cash > 0){
+  if(cash >= 2){
     cash -= 1
     bet += 1
     currentBet.textContent = 'Bet: $' +bet
     currentCash.textContent = 'Cash: $' +cash
   } else {
-    cash += 0
-    bet += 0
+    cash -= 1
+    bet += 1
+    currentBet.textContent = 'Bet: $' +bet
+    currentCash.textContent = 'Cash: $' +cash
+    dollarBtn1.disabled = true
   }
   startRoundEl.disabled = false
 }
 function addMoneyToBet5() {
-  if(cash > 0){
+  if(cash >= 5){
     cash -= 5
     bet += 5
     currentBet.textContent = 'Bet: $' +bet
     currentCash.textContent = 'Cash: $' +cash
-  } else {
-    cash += 0
-    bet += 0
+  } else{
+    cash -= 4
+    bet += 4
+    currentBet.textContent = 'Bet: $' +bet
+    currentCash.textContent = 'Cash: $' +cash
+    dollarBtn5.disabled = true
   }
   startRoundEl.disabled = false
 }
 function addMoneyToBet10() {
-  if(cash > 0){
+  if(cash >= 10){
     cash -= 10
     bet += 10
     currentBet.textContent = 'Bet: $' +bet
     currentCash.textContent = 'Cash: $' +cash
   } else {
-    cash += 0
-    bet += 0
+    cash -= 9
+    bet += 9
+    currentBet.textContent = 'Bet: $' +bet
+    currentCash.textContent = 'Cash: $' +cash
+    dollarBtn10.disabled = true
   }
   startRoundEl.disabled = false
 }
@@ -103,6 +111,7 @@ function initRound() {
   playerSum = 0
   dealerSum = 0
   enableBet()
+  checkCash()
   nextRoundBtn.disabled = true
 }
 
@@ -123,7 +132,7 @@ function init() {
   dealerHand = []
   playerSum = 0
   dealerSum = 0
-  cash = 100
+  cash = 9
   bet = 0
   roundEnd()
 }
@@ -304,5 +313,11 @@ function checkBlackjack() {
     bet = 0
     roundEnd()
     renderBet()
+  }
+}
+
+function checkCash() {
+  if (cash === 0 || cash === 0.5) {
+    disableBet()
   }
 }
