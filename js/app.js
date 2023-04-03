@@ -5,6 +5,8 @@
 let deck = []
 let playerSum = 0
 let dealerSum = 0
+let tie = false
+let gameOver = false
 let blackjack = false
 let cash = 100
 let bet = 0
@@ -101,6 +103,8 @@ function initRound() {
   deck =[
     "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   blackjack = false
+  tie = false
+  gameOver = false
   //clears the player hand and dealer hand divs so there are no card images
   playerHandEl.textContent = ''
   dealerHandEl.textContent = ''
@@ -122,6 +126,8 @@ function init() {
   deck =[
     "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
   blackjack = false
+  tie = false
+  gameOver = false
   startRoundEl.disabled = true
   nextRoundBtn.disabled = true
   hitButtonEl.disabled = true
@@ -161,19 +167,21 @@ function startRound() {
   // calls the draw card function twice because it causes the player to draw a card twice and dealer to draw twice
   drawCard()
   drawCard()
+  dealerDrawCard()
+  dealerDrawCard()
+  checkTie()
   hitButtonEl.disabled = false
   standButtonEl.disabled = false
-  checkBlackjack()
   startRoundEl.disabled = true
+  checkBlackjack()
   disableBet()
-  dealerDrawCard()
-  dealerDrawCard()
 }
   
 
 
 function drawCard() {
   //check to see if player has blackjack
+  checkTie()
   checkBlackjack()
   // Used to prevent error on click when no cards are left in deck 1
   if (deck.length > 0) {  
@@ -260,6 +268,7 @@ function dealerDrawCard() {
       } 
     }   
       dealerSum += cardPullValue
+      checkTie()
       if (dealerSum === 21) {
         messageEl.textContent = 'YOU LOSE!'
         bet = 0
@@ -281,6 +290,7 @@ function stand() {
 
 function determineWinner () {
   checkBlackjack()
+  checkTie()
   if (dealerSum > playerSum && dealerSum < 21 || playerSum > 21 || dealerSum === 21){
     messageEl.textContent = 'YOU LOSE!'
     bet = 0
@@ -314,8 +324,8 @@ function roundEnd() {
 }
 
 function checkBlackjack() {
-  
-  if (blackjack === true) {
+  checkTie()
+  if (blackjack === true && tie === false) {
     messageEl.textContent = 'BLACKJACK!'
     cash += bet * 2
     bet = 0
@@ -327,5 +337,20 @@ function checkBlackjack() {
 function checkCash() {
   if (cash === 0 || cash === 0.5) {
     disableBet()
+  }
+}
+
+function checkLoss() {
+
+}
+
+function checkTie () {
+  if (playerSum === 21 && dealerSum === 21) {
+    tie = true
+    messageEl.textContent = 'Tie'
+    cash += bet
+    bet = 0
+    renderBet()
+    roundEnd()
   }
 }
