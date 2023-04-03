@@ -13,22 +13,27 @@ let playerHand = []
 let dealerHand = []
 
 /*---- Cached Element References ----*/
+// Renders
 let messageEl = document.querySelector('#message')
-let startRoundEl = document.querySelector('.start')
-let nextRoundBtn = document.querySelector('.next-round')
 let currentCash = document.querySelector('.cash')
 let currentBet = document.querySelector('.bet-money')
-let betButtonsEl = document.querySelector ('.bet-btns')
-let dollarBtn1 = document.querySelector('.dollars1')
-let dollarBtn5 = document.querySelector('.dollars5')
-let dollarBtn10 = document.querySelector('.dollars10')
-let containerEl = document.querySelector('.container')
 let dealerHandEl = document.querySelector('#dealer-hand')
 let playerHandEl = document.querySelector('#player-hand')
 let playerSumEl = document.querySelector('#player-sum')
 let dealerSumEl = document.querySelector('#dealer-sum')
+//Buttons
+let startRoundEl = document.querySelector('.start')
+let nextRoundBtn = document.querySelector('.next-round')
+let betButtonsEl = document.querySelector ('.bet-btns')
+let dollarBtn1 = document.querySelector('.dollars1')
+let dollarBtn5 = document.querySelector('.dollars5')
+let dollarBtn10 = document.querySelector('.dollars10')
 let standButtonEl = document.querySelector('#stand-button')
 let hitButtonEl = document.querySelector('#hit-button')
+//Extra
+let containerEl = document.querySelector('.container')
+
+
 currentBet.textContent = 'Bet: $' + bet
 currentCash.textContent = 'Cash: $' + cash
 
@@ -84,7 +89,7 @@ function addMoneyToBet10() {
 function initRound() {
   deck =[
     "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-  
+  blackjack = false
   //clears the player hand and dealer hand divs so there are no card images
   playerHandEl.textContent = ''
   dealerHandEl.textContent = ''
@@ -104,6 +109,7 @@ function initRound() {
 function init() {
   deck =[
     "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  blackjack = false
   startRoundEl.disabled = true
   nextRoundBtn.disabled = true
   playerHandEl.textContent = ''
@@ -117,8 +123,6 @@ function init() {
   dealerHand = []
   playerSum = 0
   dealerSum = 0
-  blackjack = false
-  turn = 1
   cash = 100
   bet = 0
   roundEnd()
@@ -145,12 +149,11 @@ function renderDealer(cardPicked) {
 
 function startRound() {
   // calls the draw card function twice because it causes the player to draw a card twice and dealer to draw twice
-  initRound()
   drawCard()
   drawCard()
   dealerDrawCard()
   dealerDrawCard()
-  determineWinner()
+  checkBlackjack()
   startRoundEl.disabled = true
   hitButtonEl.disabled = false
   standButtonEl.disabled = false
@@ -160,6 +163,8 @@ function startRound() {
 
 
 function drawCard() {
+  //check to see if player has blackjack
+  checkBlackjack()
   // Used to prevent error on click when no cards are left in deck 1
   if (deck.length > 0) {  
 
@@ -197,6 +202,9 @@ function drawCard() {
     } 
   }   
     playerSum += cardPullValue
+    if (playerSum === 21) {
+      blackjack = true
+    }
     playerSumEl.textContent = 'Player: ' + playerSum
     if (playerSum > 21) {
       messageEl.textContent = 'YOU LOSE!'
@@ -204,7 +212,8 @@ function drawCard() {
       roundEnd()
       renderBet()
     }
-     // Pass card picked to render function to display
+    // Pass card picked to render function to display
+    checkBlackjack()
 		renderPlayer(cardPicked)
   }
 }
@@ -252,9 +261,11 @@ function stand() {
     dealerDrawCard()
   }
   determineWinner()
+  roundEnd()
 }
 
 function determineWinner () {
+  checkBlackjack()
   if (dealerSum > playerSum && dealerSum < 21 || playerSum > 21 || dealerSum === 21){
     messageEl.textContent = 'YOU LOSE!'
     bet = 0
@@ -262,13 +273,7 @@ function determineWinner () {
     messageEl.textContent = 'YOU WIN!'
     cash += bet * 1.5
     bet = 0
-  } else if (playerSum === 21) {
-    messageEl.textContent = 'BLACKJACK!'
-    cash += bet * 2
-    bet = 0
   }
-
-  roundEnd()
   renderBet()
 }
 
@@ -289,4 +294,15 @@ function roundEnd() {
   nextRoundBtn.disabled = false
   hitButtonEl.disabled = true
   standButtonEl.disabled = true
+}
+
+function checkBlackjack() {
+  
+  if (blackjack === true) {
+    messageEl.textContent = 'BLACKJACK!'
+    cash += bet * 2
+    bet = 0
+    roundEnd()
+    renderBet()
+  }
 }
