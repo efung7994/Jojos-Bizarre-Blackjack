@@ -10,38 +10,39 @@
   <script defer src="./js/app.js"></script>
 </head>
 <body>
-  <div id="message"></div>
-  <div id="dealer-sum">Dealer: </div>
-  <img id="darby" src="css/assets/pics/D'arby.png">
-  <div id="table">
+    
+    <div id="render">
+      <div id="message"></div>
+      <div id="player-sum">Player: </div>
+      <div id="dealer-sum">Dealer: </div>
+      <div class="cash">Current Cash: $</div>
+      <div class ="bet-money">Current Bet: $</div>
+    </div> 
+    <div id="combo">
+      <img id="darby" src="/css/assets/pics/D'arby.png">
+      <img id="darby2" src="/css/assets/pics/D'arby.png">
+      <div id="table">
+        <div class="card-container">
+          <div id="dealer-hand"></div>
+        </div>
+        <div class="card-container">
+          <div id="player-hand"></div>
+        </div>
+      <div id="buttons">
+        <button id="stand-button">Stand</button>
+        <button id="hit-button">Hit</button>
+        <div class="bet-btns">
+          <button class="dollars1">$1</button>
+          <button class="dollars5">$5</button>
+          <button class="dollars10">$10</button>
+        </div>
+        <div id='play-buttons'>
+          <button id="start" class="Start">Play</button>
+          <button class="next-round">Next Round</button>
+          <button class="Reset">Reset</button>
+        </div>
+      </div>
   
-  <div class="card-container">
-    <div id="dealer-sum"></div>
-    <div id="dealer-hand"></div>
-  </div>
-
-  <div class="card-container">
-    <div id="player-hand"></div>
-  </div>
-  
-  
-  <div id="buttons">
-    <button id="stand-button">Stand</button>
-    <button id="hit-button">Hit</button>
-    <div class="bet-btns">
-      <button class="dollars1">$1</button>
-      <button class="dollars5">$5</button>
-      <button class="dollars10">$10</button>
-    </div>
-    <div id = 'play-buttons'>
-      <button id="start" class="Start">Play</button>
-      <button class="next-round">Next Round</button>
-      <button class="Reset">Reset</button>
-    </div>
-    <div id="player-sum">Player: </div>
-    <div class="cash">Current Cash: $</div>
-    <div class ="bet-money">Current Bet: $</div>
-  </div>
 </div>
 </body>
 </html>

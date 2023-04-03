@@ -9,8 +9,20 @@ body {
   flex-direction: column;
   border-radius: 5px;
   border-style: solid;
-  float: right;
+  float: left;
   justify-content: flex-end;
+  width: 1171px;
+  height: 200px;
+}
+
+#gamestate {
+  background-image: url('https://wallpaperaccess.com/full/1659875.jpg');
+  border-style: solid;
+}
+#render {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .container {
@@ -42,7 +54,9 @@ body {
 }
 
 #table {
-  width: 80%;
+  width: 1171px;
+  position: absolute;
+  left: 19%
 }
 
 #dealer-hand, #player-hand {
@@ -55,9 +69,14 @@ body {
 }
 
 #darby{
-  display: flex;
+  display: inline;
   width: 20%;
   float: right;
+  height: 500px;
+}
+
+#darby2{
+  float: left;
   height: 500px;
 }
 
