@@ -149,6 +149,7 @@ function init() {
   playerSum = 0
   dealerSum = 0
   checkGameOver()
+  enableBet()
 }
 
 function renderBet() {
