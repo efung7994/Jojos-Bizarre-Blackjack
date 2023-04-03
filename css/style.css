@@ -8,6 +8,8 @@ body {
   position: absolute;
   justify-content: start;
   height: 300px;
+  border-radius: 5px;
+  border-style: solid;
 }
 
 .container {
@@ -19,6 +21,8 @@ body {
 
 .card-container {
   height: 250px;
+  border-radius: 5px;
+  border-style: solid;
 }
 
 .card {
@@ -33,14 +37,16 @@ body {
   box-shadow: 7px 7px 7px 0 rgba(41, 41, 41, 0.95) !important;
 }
 
+#table {
+  width: 1000px;
+}
+
 #dealer-hand, #player-hand {
   height: 200px;
+  
 }
 
 #message {
   height: 50px;
 }
 
-.start {
-  
-}

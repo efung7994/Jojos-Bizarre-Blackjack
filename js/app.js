@@ -220,8 +220,8 @@ function drawCard() {
       roundEnd()
       renderBet()
     }
-    // Pass card picked to render function to display
     checkBlackjack()
+    // Pass card picked to render function to display
 		renderPlayer(cardPicked)
   }
 }
@@ -269,7 +269,6 @@ function stand() {
     dealerDrawCard()
   }
   determineWinner()
-  roundEnd()
 }
 
 function determineWinner () {
@@ -282,6 +281,7 @@ function determineWinner () {
     cash += bet * 1.5
     bet = 0
   }
+  roundEnd()
   renderBet()
 }
 
@@ -299,9 +299,10 @@ function enableBet() {
 
 
 function roundEnd() {
-  nextRoundBtn.disabled = false
   hitButtonEl.disabled = true
   standButtonEl.disabled = true
+  nextRoundBtn.disabled = false
+  console.log(hitButtonEl.disabled)
 }
 
 function checkBlackjack() {
@@ -310,8 +311,8 @@ function checkBlackjack() {
     messageEl.textContent = 'BLACKJACK!'
     cash += bet * 2
     bet = 0
-    roundEnd()
     renderBet()
+    roundEnd()
   }
 }
 
