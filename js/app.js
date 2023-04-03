@@ -49,7 +49,7 @@ standButtonEl.addEventListener('click', stand)
 init()
 
 function addMoneyToBet1() {
-  if(cash >= 1){
+  if(cash > 1){
     bet += 1
     cash -= 1
     currentBet.textContent = 'Bet: $' +bet
@@ -61,6 +61,7 @@ function addMoneyToBet1() {
     currentCash.textContent = 'Cash: $' +cash
     dollarBtn1.disabled = true
   }
+  checkCash()
   startRoundEl.disabled = false
 }
 function addMoneyToBet5() {
@@ -76,10 +77,11 @@ function addMoneyToBet5() {
     currentCash.textContent = 'Cash: $' +cash
     dollarBtn5.disabled = true
   }
+  checkCash()
   startRoundEl.disabled = false
 }
 function addMoneyToBet10() {
-  if(cash >= 10){
+  if(cash > 10){
     bet += 10
     cash -= 10
     currentBet.textContent = 'Bet: $' +bet
@@ -91,6 +93,7 @@ function addMoneyToBet10() {
     currentCash.textContent = 'Cash: $' +cash
     dollarBtn10.disabled = true
   }
+  checkCash()
   startRoundEl.disabled = false
 }
 
