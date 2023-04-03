@@ -1,15 +1,16 @@
 body {
   background-color: #696969;
+  background-image: url('/css/assets/pics/jojoBG.jpeg');
+  background-size: contain;
 }
 
 #buttons {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  justify-content: start;
-  height: 300px;
   border-radius: 5px;
   border-style: solid;
+  float: right;
+  justify-content: flex-end;
 }
 
 .container {
@@ -23,6 +24,9 @@ body {
   height: 250px;
   border-radius: 5px;
   border-style: solid;
+  background-image: url('/css/assets/pics/blackjack table.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .card {
@@ -38,7 +42,7 @@ body {
 }
 
 #table {
-  width: 1000px;
+  width: 80%;
 }
 
 #dealer-hand, #player-hand {
@@ -48,5 +52,12 @@ body {
 
 #message {
   height: 50px;
+}
+
+#darby{
+  display: flex;
+  width: 20%;
+  float: right;
+  height: 500px;
 }
 
