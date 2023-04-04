@@ -31,6 +31,7 @@ let dollarBtn10 = document.querySelector('.dollars10')
 let standButtonEl = document.querySelector('#stand-button')
 let hitButtonEl = document.querySelector('#hit-button')
 let resetBtnEl = document.querySelector('.reset')
+let resetBetBtn = document.querySelector('.unbet')
 
 // Extra
 let menaceEl = document.querySelector('#menace-img')
@@ -44,6 +45,8 @@ startRoundEl.addEventListener('click', startRound)
 hitButtonEl.addEventListener('click', drawCard)
 nextRoundBtn.addEventListener('click', initRound)
 standButtonEl.addEventListener('click', stand)
+resetBetBtn.addEventListener('click', resetBet)
+
 /*------------ Functions ------------*/
 init()
 
@@ -71,6 +74,7 @@ function initRound() {
   enableBet()
   checkCash()
   checkGameOver()
+  resetBetBtn.disabled = false
   nextRoundBtn.disabled = true
   nextRoundBtn.style.opacity = '0'
   menaceEl.style.opacity = '0'
@@ -105,6 +109,7 @@ function init() {
   dealerSum = 0
   checkGameOver()
   enableBet()
+  resetBtnEl.style.opacity = '0'
 }
 /*------------ Buttons for betting ------------*/
 function addMoneyToBet1() {
@@ -154,6 +159,15 @@ function addMoneyToBet10() {
   }
   checkCash()
   startRoundEl.disabled = false
+}
+
+function resetBet() {
+  cash += bet
+  bet = 0
+  currentCash.textContent = 'Cash: $' +cash
+  currentBet.textContent = 'Bet: $' +bet
+  startRoundEl.disabled = true
+  enableBet()
 }
 
 
@@ -256,6 +270,7 @@ function drawCard() {
     if (playerSum > 21) {
       bet = 0
       checkLose()
+      nextRoundBtn.style.opacity = '1'
       roundEnd()
       renderBet()
     }
@@ -322,12 +337,12 @@ function determineWinner () {
     checkLose()
     bet = 0
   } else if (playerSum <= 21 && dealerSum > 21) {
-    messageEl.textContent = 'YOU WIN!'
     cash += bet * 1.5
     bet = 0
   }
   roundEnd()
   renderBet()
+  nextRoundBtn.style.opacity = '1'
 }
 
 
@@ -336,6 +351,7 @@ function disableBet() {
   dollarBtn1.disabled = true
   dollarBtn5.disabled = true
   dollarBtn10.disabled = true
+  resetBetBtn.disabled = true
 }
 
 function enableBet() {
@@ -356,7 +372,7 @@ function roundEnd() {
   hitButtonEl.disabled = true
   standButtonEl.disabled = true
   nextRoundBtn.disabled = false
-
+  
 }
 
 
@@ -364,7 +380,6 @@ function roundEnd() {
 function checkBlackjack() {
   checkTie()
   if (blackjack === true && tie === false) {
-    messageEl.textContent = 'BLACKJACK!'
     cash += bet * 2
     bet = 0
     renderBet()
@@ -382,13 +397,13 @@ function checkGameOver() {
   if (cash === 0 && bet === 0){
   gameOver = true
   resetBtnEl.disabled = false
+  resetBtnEl.style.opacity = '1'
   }
 }
 
 function checkTie () {
   if (playerSum === 21 && dealerSum === 21) {
     tie = true
-    messageEl.textContent = 'Tie'
     cash += bet
     bet = 0
     renderBet()
