@@ -168,16 +168,26 @@ function renderDealer(cardPicked) {
   cardImg.classList.add('card', 'large', cardPicked)
 }
 
+function renderDealerFaceDown() {
+  let cardImg = dealerHandEl.appendChild(document.createElement('div'))
+  cardImg.classList.add('card', 'large', 'back')
+}
+
+function renderDealerRemoveFacedown() {
+  dealerHandEl.removeChild(dealerHandEl.lastChild)
+}
+
 function startRound() {
   // calls the draw card function twice because it causes the player to draw a card twice and dealer to draw twice
   drawCard()
   drawCard()
   dealerDrawCard()
-  dealerDrawCard()
+  renderDealerFaceDown()
   checkTie()
   hitButtonEl.disabled = false
   standButtonEl.disabled = false
   startRoundEl.disabled = true
+  nextRoundBtn.disabled = true
   disableBet()
 }
   
@@ -282,6 +292,7 @@ function dealerDrawCard() {
   }
 
 function stand() {
+  renderDealerRemoveFacedown()
   while (playerSum >= dealerSum) {
     dealerDrawCard()
   }
