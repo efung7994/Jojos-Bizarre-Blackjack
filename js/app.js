@@ -32,8 +32,6 @@ let dollarBtn10 = document.querySelector('.dollars10')
 let standButtonEl = document.querySelector('#stand-button')
 let hitButtonEl = document.querySelector('#hit-button')
 let resetBtnEl = document.querySelector('.reset')
-//Extra
-let containerEl = document.querySelector('.container')
 
 
 currentBet.textContent = 'Bet: $' + bet
@@ -51,6 +49,65 @@ standButtonEl.addEventListener('click', stand)
 /*------------ Functions ------------*/
 init()
 
+/*------------ Initialize functions ------------*/
+function initRound() {
+  deck =[
+    "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02",
+    "hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02",
+    "cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02",
+    "sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  blackjack = false
+  tie = false
+  gameOver = false
+  //clears the player hand and dealer hand divs so there are no card images
+  playerHandEl.textContent = ''
+  dealerHandEl.textContent = ''
+  currentBet.textContent = 'Bet: $' + bet
+  currentCash.textContent = 'Cash: $' + cash
+  dealerSumEl.textContent = 'Dealer: '
+  playerSumEl.textContent = 'Player: '
+  messageEl.textContent = ' '
+  playerHand = []
+  dealerHand = []
+  playerSum = 0
+  dealerSum = 0
+  enableBet()
+  checkCash()
+  checkGameOver()
+  nextRoundBtn.disabled = true
+}
+
+function init() {
+  deck =[
+    "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02",
+    "hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02",
+    "cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02",
+    "sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  cash = 100
+  bet = 0
+  blackjack = false
+  tie = false
+  gameOver = false
+  startRoundEl.disabled = true
+  nextRoundBtn.disabled = true
+  hitButtonEl.disabled = true
+  standButtonEl.disabled = true
+  resetBtnEl.disabled = true
+  playerHandEl.textContent = ''
+  dealerHandEl.textContent = ''
+  currentBet.textContent = 'Bet: $' + bet
+  currentCash.textContent = 'Cash: $' + cash
+  dealerSumEl.textContent = 'Dealer: '
+  playerSumEl.textContent = 'Player: '
+  messageEl.textContent = ' '
+  playerHand = []
+  dealerHand = []
+  playerSum = 0
+  dealerSum = 0
+  checkGameOver()
+  enableBet()
+}
+/*------------ Buttons for betting ------------*/
 function addMoneyToBet1() {
   if(cash > 1){
     bet += 1
@@ -100,95 +157,54 @@ function addMoneyToBet10() {
   startRoundEl.disabled = false
 }
 
-function initRound() {
-  deck =[
-    "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-  blackjack = false
-  tie = false
-  gameOver = false
-  //clears the player hand and dealer hand divs so there are no card images
-  playerHandEl.textContent = ''
-  dealerHandEl.textContent = ''
-  currentBet.textContent = 'Bet: $' + bet
-  currentCash.textContent = 'Cash: $' + cash
-  dealerSumEl.textContent = 'Dealer: '
-  playerSumEl.textContent = 'Player: '
-  messageEl.textContent = ' '
-  playerHand = []
-  dealerHand = []
-  playerSum = 0
-  dealerSum = 0
-  enableBet()
-  checkCash()
-  checkGameOver()
-  nextRoundBtn.disabled = true
-}
 
-function init() {
-  deck =[
-    "dA","dQ","dK","dJ","d10","d09","d08","d07","d06","d05","d04","d03","d02","hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02","cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02","sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
-  cash = 100
-  bet = 0
-  blackjack = false
-  tie = false
-  gameOver = false
-  startRoundEl.disabled = true
-  nextRoundBtn.disabled = true
-  hitButtonEl.disabled = true
-  standButtonEl.disabled = true
-  resetBtnEl.disabled = true
-  playerHandEl.textContent = ''
-  dealerHandEl.textContent = ''
-  currentBet.textContent = 'Bet: $' + bet
-  currentCash.textContent = 'Cash: $' + cash
-  dealerSumEl.textContent = 'Dealer: '
-  playerSumEl.textContent = 'Player: '
-  messageEl.textContent = ' '
-  playerHand = []
-  dealerHand = []
-  playerSum = 0
-  dealerSum = 0
-  checkGameOver()
-  enableBet()
-}
 
+
+/*------------ Render Functions ------------*/
 function renderBet() {
   currentBet.textContent = 'Bet: $' + bet
   currentCash.textContent = 'Cash: $' + cash
 }
 
-
 function renderPlayer(cardPicked) {
   let cardImg = playerHandEl.appendChild(document.createElement('div'))
-  cardImg.classList.add('card', 'large', cardPicked)
+  cardImg.classList.add('card', 'large','animate__animated', 'animate__fadeInRightBig', cardPicked)
 }
 
 function renderDealer(cardPicked) {
   let cardImg = dealerHandEl.appendChild(document.createElement('div'))
-  cardImg.classList.add('card', 'large', cardPicked)
+  cardImg.classList.add('card', 'large', 'animate__animated', 'animate__fadeInRightBig', cardPicked)
 }
 
 function renderDealerFaceDown() {
   let cardImg = dealerHandEl.appendChild(document.createElement('div'))
-  cardImg.classList.add('card', 'large', 'back')
+  cardImg.classList.add('card', 'large', 'back', 'animate__animated', 'animate__fadeInRightBig')
 }
 
 function renderDealerRemoveFacedown() {
-  dealerHandEl.removeChild(dealerHandEl.lastChild)
+  dealerHandEl.removeChild(dealerHandEl.firstChild)
 }
 
+
+
+/*------------ Game Logic Functions------------*/
 function startRound() {
   // calls the draw card function twice because it causes the player to draw a card twice and dealer to draw twice
-  drawCard()
-  drawCard()
-  dealerDrawCard()
-  renderDealerFaceDown()
-  checkTie()
-  hitButtonEl.disabled = false
-  standButtonEl.disabled = false
-  startRoundEl.disabled = true
-  nextRoundBtn.disabled = true
-  disableBet()
+  // drawCard()
+  // drawCard()
+  // dealerDrawCard()
+  // renderDealerFaceDown()
+  // checkTie()
+  // roundStart()
+  // disableBet()
+startRoundEl.disabled = true
+setTimeout(drawCard, 500)
+setTimeout(dealerDrawCard, 2000)
+setTimeout(drawCard, 1500)
+setTimeout(renderDealerFaceDown, 1000)
+setTimeout(checkTie, 2500)
+setTimeout(roundStart, 2600)
+setTimeout(disableBet, 2600)
 }
   
 
@@ -260,7 +276,7 @@ function dealerDrawCard() {
     let cardPicked = deck.splice(randIdx, 1)[0]
       
       dealerHand.push(cardPicked)
-  
+
       cardPullValue = parseInt(cardPicked.match(/[0-9]{2}/g))
       if (isNaN(cardPullValue) === false){
         cardPullValue = cardPullValue
@@ -315,6 +331,8 @@ function determineWinner () {
   renderBet()
 }
 
+
+/*------------ Disable/Enable Button Functions ------------*/
 function disableBet() {
   dollarBtn1.disabled = true
   dollarBtn5.disabled = true
@@ -328,12 +346,21 @@ function enableBet() {
 }
 
 
+function roundStart() {
+  hitButtonEl.disabled = false
+  standButtonEl.disabled = false
+  startRoundEl.disabled = true
+  nextRoundBtn.disabled = true
+}
+
 function roundEnd() {
   hitButtonEl.disabled = true
   standButtonEl.disabled = true
   nextRoundBtn.disabled = false
 }
 
+
+/*------------ Check Game State Functions ------------*/
 function checkBlackjack() {
   checkTie()
   if (blackjack === true && tie === false) {
@@ -346,7 +373,7 @@ function checkBlackjack() {
 }
 
 function checkCash() {
-  if (cash === 0 || cash === 0.5) {
+  if (cash === 0) {
     disableBet()
   }
 }

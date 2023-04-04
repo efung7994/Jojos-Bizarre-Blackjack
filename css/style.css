@@ -12,6 +12,7 @@ body {
   justify-content: flex-start;
   width: 1171px;
   height: 200px;
+  border-radius: 10px;
 }
 
 .bet-btns {
@@ -101,4 +102,6 @@ body {
   height: 500px;
   width: 365px;
 }
+
+
 
