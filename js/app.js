@@ -178,7 +178,6 @@ function startRound() {
   hitButtonEl.disabled = false
   standButtonEl.disabled = false
   startRoundEl.disabled = true
-  checkBlackjack()
   disableBet()
 }
   
@@ -227,7 +226,6 @@ function drawCard() {
     playerSum += cardPullValue
     if (playerSum === 21) {
       blackjack = true
-      checkBlackjack()
     }
     playerSumEl.textContent = 'Player: ' + playerSum
     if (playerSum > 21) {
@@ -274,12 +272,9 @@ function dealerDrawCard() {
     }   
       dealerSum += cardPullValue
       checkTie()
-      if (dealerSum === 21) {
-        messageEl.textContent = 'YOU LOSE!'
-        bet = 0
         roundEnd()
         renderBet()
-      }
+      
       dealerSumEl.textContent = 'Dealer: ' + dealerSum
        // Pass card picked to render function to display
       renderDealer(cardPicked)
@@ -291,6 +286,7 @@ function stand() {
     dealerDrawCard()
   }
   determineWinner()
+  checkBlackjack()
 }
 
 function determineWinner () {

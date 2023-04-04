@@ -6,19 +6,31 @@ body {
 
 #buttons {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   border-radius: 5px;
   border-style: solid;
-  float: left;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 1171px;
   height: 200px;
 }
 
-#gamestate {
-  background-image: url('https://wallpaperaccess.com/full/1659875.jpg');
+.bet-btns {
+  display: flex;
+  flex-direction: column;
   border-style: solid;
 }
+
+#play-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+#game-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 #render {
   display: flex;
   flex-direction: column;
@@ -32,7 +44,7 @@ body {
   align-items: center;
 }
 
-.card-container {
+.player-card-container {
   height: 250px;
   border-radius: 5px;
   border-style: solid;
@@ -40,6 +52,15 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.dealer-card-container {
+  height: 250px;
+  border-radius: 5px;
+  border-style: solid;
+  background-image: url('/css/assets/pics/360_F_101064292_hi9e6IPHczemyLSsJj27XLgoVCSaA1Ai.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}                                                                                              
 
 .card {
   margin: 3vh;
@@ -75,8 +96,9 @@ body {
   height: 500px;
 }
 
-#darby2{
+#osiris{
   float: left;
   height: 500px;
+  width: 365px;
 }
 
