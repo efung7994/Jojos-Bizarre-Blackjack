@@ -198,13 +198,13 @@ function startRound() {
   // roundStart()
   // disableBet()
 startRoundEl.disabled = true
+disableBet()
 setTimeout(drawCard, 500)
 setTimeout(dealerDrawCard, 2000)
 setTimeout(drawCard, 1500)
 setTimeout(renderDealerFaceDown, 1000)
 setTimeout(checkTie, 2500)
 setTimeout(roundStart, 2600)
-setTimeout(disableBet, 2600)
 }
   
 
