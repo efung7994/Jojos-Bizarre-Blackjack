@@ -1,5 +1,5 @@
 /*------------ Constants ------------*/
-
+const nani = new Audio('')
 
 /*------------ Variables ------------*/
 let deck = []
@@ -15,7 +15,6 @@ let dealerHand = []
 
 /*---- Cached Element References ----*/
 // Renders
-let messageEl = document.querySelector('#message')
 let currentCash = document.querySelector('.cash')
 let currentBet = document.querySelector('.bet-money')
 let dealerHandEl = document.querySelector('#dealer-hand')
@@ -33,9 +32,8 @@ let standButtonEl = document.querySelector('#stand-button')
 let hitButtonEl = document.querySelector('#hit-button')
 let resetBtnEl = document.querySelector('.reset')
 
-
-currentBet.textContent = 'Bet: $' + bet
-currentCash.textContent = 'Cash: $' + cash
+// Extra
+let menaceEl = document.querySelector('#menace-img')
 
 /*--------- Event Listeners ---------*/
 resetBtnEl.addEventListener('click', init)
@@ -66,7 +64,6 @@ function initRound() {
   currentCash.textContent = 'Cash: $' + cash
   dealerSumEl.textContent = 'Dealer: '
   playerSumEl.textContent = 'Player: '
-  messageEl.textContent = ' '
   playerHand = []
   dealerHand = []
   playerSum = 0
@@ -75,6 +72,9 @@ function initRound() {
   checkCash()
   checkGameOver()
   nextRoundBtn.disabled = true
+  nextRoundBtn.style.opacity = '0'
+  menaceEl.style.opacity = '0'
+  menaceEl.classList.remove('animate__animated', 'animate__shakeX')
 }
 
 function init() {
@@ -99,7 +99,6 @@ function init() {
   currentCash.textContent = 'Cash: $' + cash
   dealerSumEl.textContent = 'Dealer: '
   playerSumEl.textContent = 'Player: '
-  messageEl.textContent = ' '
   playerHand = []
   dealerHand = []
   playerSum = 0
@@ -255,8 +254,8 @@ function drawCard() {
     }
     playerSumEl.textContent = 'Player: ' + playerSum
     if (playerSum > 21) {
-      messageEl.textContent = 'YOU LOSE!'
       bet = 0
+      checkLose()
       roundEnd()
       renderBet()
     }
@@ -320,7 +319,7 @@ function determineWinner () {
   checkBlackjack()
   checkTie()
   if (dealerSum > playerSum && dealerSum < 21 || playerSum > 21 || dealerSum === 21){
-    messageEl.textContent = 'YOU LOSE!'
+    checkLose()
     bet = 0
   } else if (playerSum <= 21 && dealerSum > 21) {
     messageEl.textContent = 'YOU WIN!'
@@ -357,6 +356,7 @@ function roundEnd() {
   hitButtonEl.disabled = true
   standButtonEl.disabled = true
   nextRoundBtn.disabled = false
+
 }
 
 
@@ -394,4 +394,10 @@ function checkTie () {
     renderBet()
     roundEnd()
   }
+}
+
+function checkLose() {
+  menaceEl.style.opacity = '1'
+  menaceEl.classList.add('animate__animated', 'animate__shakeX' )
+  menaceEl.style.setProperty('--animate-duration', '.5s')
 }
