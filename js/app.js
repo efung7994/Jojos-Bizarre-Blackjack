@@ -102,6 +102,7 @@ function init() {
   hitButtonEl.disabled = true
   standButtonEl.disabled = true
   resetBtnEl.disabled = true
+  resetBetBtn.disabled = false
   playerHandEl.textContent = ''
   dealerHandEl.textContent = ''
   currentBet.textContent = 'Bet: $' + bet
@@ -114,7 +115,8 @@ function init() {
   dealerSum = 0
   checkGameOver()
   enableBet()
-  messageEl.style.opacity = '1'
+  messageEl.style.opacity = '0'
+  resetBtnEl.style.opacity = '0'
 }
 /*------------ Buttons for betting ------------*/
 function addMoneyToBet1() {
@@ -385,6 +387,9 @@ function checkGameOver() {
   resetBtnEl.disabled = false
   resetBtnEl.style.opacity = '1'
   resetBetBtn.disabled = true
+  messageEl.textContent = 'K.O.'
+  messageEl.style.color = 'black'
+  messageEl.style.opacity = '1'
   }
 }
 

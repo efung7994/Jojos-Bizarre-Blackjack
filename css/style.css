@@ -114,6 +114,20 @@ h3 {
 #unbet {
   font-size: 20px;
   margin-top: 5px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 3px;
+}
+
+#unbet:hover{
+  box-shadow: 10px 4px 5px gray;
+
+}
+
+#unbet:active{
+  box-shadow: 4px 4px 5px gray;
+  border-style: groove;
+  margin-left: 2px;
 }
 
 
@@ -122,7 +136,7 @@ h3 {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  font-size: 35px;
+  font-size: 30px;
   margin: 5px 0 5px 5px;
 }
 
@@ -228,8 +242,12 @@ h3 {
 }
 
 #next-round {
-  opacity: 1;
+  background-color: rgb(223, 221, 221);
+  opacity: 0;
   margin-bottom: 5px;
+  padding-right: 10px;
+  border-style: solid;
+  border-width: 5px;
 }
 
 #next-round:hover{
@@ -238,14 +256,16 @@ h3 {
 }
 
 #next-round:active{
-  margin-left: 2px;
   box-shadow: 4px 4px 5px gray;
   border-style: groove;
 }
 
 #reset {
-  opacity: 1;
+  background-color: rgb(223, 221, 221);
+  opacity: 0;
   margin-bottom: 5px;
+  border-style: solid;
+  border-width: 5px;
 }
 
 #reset:hover{
@@ -280,11 +300,37 @@ h3 {
 #stand-button {
   margin: 0 5px 0 5px;
   width: 70px;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  border-radius: 5px;
+  border-style: double;
+  border-width: 5px;
+}
+
+#stand-button:hover{
+  box-shadow: 0px 0px 10px;
+}
+
+#stand-button:active{
+  border-style: groove;
 }
 
 #hit-button{
   width: 70px;
+  border-radius: 5px;
+  border-style: double;
+  border-width: 5px;
 }
+
+#hit-button:hover{
+  box-shadow: 0px 0px 10px;
+}
+
+#hit-button:active{
+  border-style: groove;
+}
+
+
 
 
 
