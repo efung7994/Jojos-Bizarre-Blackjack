@@ -1,14 +1,21 @@
 /*------------ Constants ------------*/
-const win = new Audio('')
-const start = new Audio('')
-const lose = new Audio('')
+const deal = new Audio('/css/assets/sounds/Deal.wav')
+const win = new Audio('/css/assets/sounds/win.wav')
+const start = new Audio('/css/assets/sounds/start.wav')
+start.volume = 0.7
+const lose = new Audio('/css/assets/sounds/lose.wav')
+lose.volume = 0.5
+const retire = new Audio('/css/assets/sounds/retire.mp3')
+retire.volume = 0.5
+const nani = new Audio('/css/assets/sounds/nani.wav')
+const betChip = new Audio('/css/assets/sounds/bet.wav')
+const resetChips = new Audio('/css/assets/sounds/resetChips.wav')
 
 /*------------ Variables ------------*/
 let deck = []
 let playerSum = 0
 let dealerSum = 0
 let tie = false
-let gameOver = false
 let blackjack = false
 let cash = 100
 let bet = 0
@@ -24,6 +31,7 @@ let playerHandEl = document.querySelector('#player-hand')
 let playerSumEl = document.querySelector('#player-sum')
 let dealerSumEl = document.querySelector('#dealer-sum')
 let messageEl = document.querySelector('#message')
+
 //Buttons
 let startRoundEl = document.querySelector('#start')
 let nextRoundBtn = document.querySelector('#next-round')
@@ -60,9 +68,10 @@ function initRound() {
     "hA","hQ","hK","hJ","h10","h09","h08","h07","h06","h05","h04","h03","h02",
     "cA","cQ","cK","cJ","c10","c09","c08","c07","c06","c05","c04","c03","c02",
     "sA","sQ","sK","sJ","s10","s09","s08","s07","s06","s05","s04","s03","s02"]
+  
+  // check blackjack and tie to see what the bet return will be
   blackjack = false
   tie = false
-  gameOver = false
   //clears the player hand and dealer hand divs so there are no card images
   playerHandEl.textContent = ''
   dealerHandEl.textContent = ''
@@ -96,7 +105,6 @@ function init() {
   bet = 0
   blackjack = false
   tie = false
-  gameOver = false
   startRoundEl.disabled = true
   nextRoundBtn.disabled = true
   hitButtonEl.disabled = true
@@ -120,6 +128,7 @@ function init() {
 }
 /*------------ Buttons for betting ------------*/
 function addMoneyToBet1() {
+  betChip.play()
   if(cash > 1){
     bet += 1
     cash -= 1
@@ -136,6 +145,7 @@ function addMoneyToBet1() {
   startRoundEl.disabled = false
 }
 function addMoneyToBet5() {
+  betChip.play()
   if(cash > 5){
     bet += 5
     cash -= 5
@@ -152,6 +162,7 @@ function addMoneyToBet5() {
   startRoundEl.disabled = false
 }
 function addMoneyToBet10() {
+  betChip.play()
   if(cash > 10){
     bet += 10
     cash -= 10
@@ -169,6 +180,7 @@ function addMoneyToBet10() {
 }
 
 function resetBet() {
+  resetChips.play()
   cash += bet
   bet = 0
   currentCash.textContent = 'Cash: $' +cash
@@ -209,27 +221,21 @@ function renderDealerRemoveFacedown() {
 
 /*------------ Game Logic Functions------------*/
 function startRound() {
-  // calls the draw card function twice because it causes the player to draw a card twice and dealer to draw twice
-  // drawCard()
-  // drawCard()
-  // dealerDrawCard()
-  // renderDealerFaceDown()
-  // checkTie()
-  // roundStart()
-  // disableBet()
-startRoundEl.disabled = true
-disableBet()
-setTimeout(drawCard, 500)
-setTimeout(dealerDrawCard, 2000)
-setTimeout(drawCard, 1500)
-setTimeout(renderDealerFaceDown, 1000)
-setTimeout(checkTie, 2500)
-setTimeout(roundStart, 2600)
+  start.play()
+  startRoundEl.disabled = true
+  disableBet()
+  setTimeout(drawCard, 500)
+  setTimeout(dealerDrawCard, 2000)
+  setTimeout(drawCard, 1500)
+  setTimeout(renderDealerFaceDown, 1000)
+  setTimeout(checkTie, 2500)
+  setTimeout(roundStart, 2600)
 }
   
 
 
 function drawCard() {
+  deal.play()
   // Used to prevent error on click when no cards are left in deck 1
   if (deck.length > 0) {  
 
@@ -280,6 +286,7 @@ function drawCard() {
 }
     // function is the same as draw card except it places the cards in the dealer's hands
 function dealerDrawCard() {
+    deal.play()
    // Used to prevent error on click when no cards are left in deck 1
     if (deck.length > 0) {  
   
@@ -367,6 +374,7 @@ function roundEnd() {
 function checkBlackjack() {
   checkTie()
   if (blackjack === true && tie === false) {
+    nani.play()
     cash += bet * 2
     bet = 0
     renderBet()
@@ -383,7 +391,7 @@ function checkCash() {
 
 function checkGameOver() {
   if (cash === 0 && bet === 0){
-  gameOver = true
+  retire.play()
   resetBtnEl.disabled = false
   resetBtnEl.style.opacity = '1'
   resetBetBtn.disabled = true
@@ -409,6 +417,7 @@ function checkTie () {
 
 function checkLose() {
   if (playerSum > 21 || dealerSum > playerSum && dealerSum <= 21) {
+    lose.play()
     bet = 0
     nextRoundBtn.style.opacity = '1'
     roundEnd()
@@ -425,6 +434,7 @@ function checkLose() {
 function checkWin() {
   checkBlackjack()
   if (playerSum <= 21 && dealerSum > 21) {
+    win.play()
     cash += bet * 1.5
     bet = 0
     nextRoundBtn.style.opacity = '1'

@@ -140,110 +140,9 @@ h3 {
   margin: 5px 0 5px 5px;
 }
 
-.game-state {
-  font-size: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding-left: 50px;
-  width: 300px;
-}
-
-#render {
-  -webkit-text-stroke: 2px black;
-  color: blue;
-  font-family: sawarabi mincho, sans-serif;
-  font-size: 115px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.player-card-container {
-  height: 250px;
-  border-radius: 0px;
-  background-image: url('/css/assets/pics/blackjack table.jpeg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.dealer-card-container {
-  height: 250px;
-  border-radius: 5px;
-  border-style: solid;
-  background-image: url('/css/assets/pics/360_F_101064292_hi9e6IPHczemyLSsJj27XLgoVCSaA1Ai.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-}                                                                                              
-
-.card {
-  margin: 3vh;
-}
-
-.card.outline {
-  border: 0.15em dashed #202d7a;
-}
-
-.card.shadow {
-  box-shadow: 7px 7px 7px 0 rgba(41, 41, 41, 0.95) !important;
-}
-
-#table {
-  width: 1171px;
-  position: absolute;
-  left: 19%
-}
-
-#dealer-hand, #player-hand {
-  height: 200px;
-  
-}
-
-#message {
-  height: 50px;
-}
-
-#darby{
-  display: inline;
-  width: 20%;
-  float: right;
-  height: 500px;
-}
-
-#osiris{
-  float: left;
-  height: 500px;
-  width: 365px;
-}
-
-#menace-img{
-  opacity: 0;
-  padding-top: 500px;
-}
-#menacing {
-  display: flex;
-  flex-direction: row;
-  float:left;
-  width: 400px;
-}
-#menacing2{
-  display: flex;
-  flex-direction: row;
-  float: right;
-  width: 400px;
-}
-
 #next-round {
   background-color: rgb(223, 221, 221);
-  opacity: 0;
+  opacity: 1;
   margin-bottom: 5px;
   padding-right: 10px;
   border-style: solid;
@@ -329,6 +228,98 @@ h3 {
 #hit-button:active{
   border-style: groove;
 }
+
+.game-state {
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 50px;
+  width: 300px;
+}
+
+#render {
+  -webkit-text-stroke: 2px black;
+  color: blue;
+  font-family: sawarabi mincho, sans-serif;
+  font-size: 115px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.player-card-container {
+  height: 250px;
+  border-radius: 0px;
+  background-image: url('/css/assets/pics/blackjack table.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.dealer-card-container {
+  height: 250px;
+  border-radius: 5px;
+  border-style: solid;
+  background-image: url('/css/assets/pics/360_F_101064292_hi9e6IPHczemyLSsJj27XLgoVCSaA1Ai.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}                                                                                              
+
+.card {
+  margin: 3vh;
+}
+
+.card.outline {
+  border: 0.15em dashed #202d7a;
+}
+
+.card.shadow {
+  box-shadow: 7px 7px 7px 0 rgba(41, 41, 41, 0.95) !important;
+}
+
+#table {
+  width: 1171px;
+  position: absolute;
+  left: 19%
+}
+
+#dealer-hand, #player-hand {
+  height: 200px;
+  
+}
+
+#darby{
+  display: inline;
+  width: 20%;
+  float: right;
+  height: 500px;
+}
+
+#osiris{
+  float: left;
+  height: 500px;
+  width: 365px;
+}
+
+#menace-img{
+  opacity: 0;
+  padding-top: 500px;
+}
+#menacing {
+  display: flex;
+  flex-direction: row;
+  float:left;
+  width: 400px;
+}
+#menacing2{
+  display: flex;
+  flex-direction: row;
+  float: right;
+  width: 400px;
+}
+
+
 
 
 
