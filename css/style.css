@@ -45,6 +45,7 @@ h3 {
   flex-direction: column;
   width: 120px;
   align-items: center;
+  margin-bottom: 5px;
 }
 
 #dollars1{
@@ -112,6 +113,7 @@ h3 {
 
 #unbet {
   font-size: 20px;
+  margin-top: 5px;
 }
 
 
@@ -119,8 +121,9 @@ h3 {
 .play-buttons {
   display: flex;
   flex-direction: column;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  justify-content: center;
   font-size: 35px;
+  margin: 5px 0 5px 5px;
 }
 
 .game-state {
@@ -131,7 +134,7 @@ h3 {
   padding-left: 50px;
   width: 300px;
 }
-/* 115 */
+
 #render {
   -webkit-text-stroke: 2px black;
   color: blue;
@@ -225,6 +228,63 @@ h3 {
 }
 
 #next-round {
-  opacity: 0%;
+  opacity: 1;
+  margin-bottom: 5px;
 }
+
+#next-round:hover{
+  box-shadow: 10px 4px 5px gray;
+
+}
+
+#next-round:active{
+  margin-left: 2px;
+  box-shadow: 4px 4px 5px gray;
+  border-style: groove;
+}
+
+#reset {
+  opacity: 1;
+  margin-bottom: 5px;
+}
+
+#reset:hover{
+  box-shadow: 10px 4px 5px gray;
+
+}
+
+#reset:active{
+  margin-left: 2px;
+  box-shadow: 4px 4px 5px gray;
+  border-style: groove;
+}
+
+#start {
+  margin-bottom: 5px;
+  border-style: solid;
+  border-width: 5px;
+  background-color: rgb(124, 232, 71);
+}
+
+#start:hover{
+  box-shadow: 10px 4px 5px gray;
+
+}
+
+#start:active{
+  margin-left: 2px;
+  box-shadow: 4px 4px 5px gray;
+  border-style: groove;
+}
+
+#stand-button {
+  margin: 0 5px 0 5px;
+  width: 70px;
+}
+
+#hit-button{
+  width: 70px;
+}
+
+
 

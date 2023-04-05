@@ -1,5 +1,7 @@
 /*------------ Constants ------------*/
-const nani = new Audio('')
+const win = new Audio('')
+const start = new Audio('')
+const lose = new Audio('')
 
 /*------------ Variables ------------*/
 let deck = []
@@ -77,6 +79,7 @@ function initRound() {
   resetBetBtn.disabled = false
   nextRoundBtn.disabled = true
   nextRoundBtn.style.opacity = '0'
+  resetBtnEl.style.opacity = '0'
   menaceEl.style.opacity = '0'
   menaceEl.classList.remove('animate__animated', 'animate__shakeX')
   messageEl.style.opacity = '0'
@@ -111,7 +114,6 @@ function init() {
   dealerSum = 0
   checkGameOver()
   enableBet()
-  resetBtnEl.style.opacity = '0'
   messageEl.style.opacity = '1'
 }
 /*------------ Buttons for betting ------------*/
@@ -322,6 +324,7 @@ function stand() {
   while (playerSum >= dealerSum && dealerSum != 21) {
     dealerDrawCard()
   }
+  checkTie()
   checkWin()
   checkLose()
   checkBlackjack()
@@ -390,6 +393,7 @@ function checkTie () {
     tie = true
     cash += bet
     bet = 0
+    nextRoundBtn.style.opacity = '1'
     renderBet()
     roundEnd()
     messageEl.textContent = 'DRAW'
