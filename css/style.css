@@ -1,4 +1,5 @@
 body {
+  font-family: Rye, sans-serif;
   background-color: #696969;
   background-image: url('/css/assets/pics/jojoBG.jpeg');
   background-size: contain;
@@ -36,6 +37,16 @@ body {
   margin-top: 5px;
 }
 
+#dollars1:hover{
+  margin-right: 2px;
+  box-shadow: 10px 4px 5px gray;
+}
+
+#dollars1:active{
+  margin-left: 2px;
+  box-shadow: 4px 4px 5px gray;
+}
+
 #dollars5{
   border-radius: 50%;
   border-width: 6px;
@@ -45,6 +56,16 @@ body {
   height: 60px;
   width: 50px;
   margin-top: 5px;
+}
+
+#dollars5:hover{
+  margin-right: 2px;
+  box-shadow: 10px 4px 5px gray;
+}
+
+#dollars5:active{
+  margin-left: 2px;
+  box-shadow: 4px 4px 5px gray;
 }
 
 #dollars10{
@@ -58,13 +79,21 @@ body {
   margin-top: 5px;
 }
 
-#dollars1:hover{
-  box-shadow: 10px 5px 5px gray;
+#dollars10:hover{
+  margin-right: 2px;
+  box-shadow: 10px 4px 5px gray;
 }
 
-#dollars1:active{
-  box-shadow: 0px 4px 5px gray;
+#dollars10:active{
+  margin-left: 2px;
+  box-shadow: 4px 4px 5px gray;
 }
+
+#unbet {
+  font-size: 20px;
+}
+
+
 
 .play-buttons {
   display: flex;
@@ -74,15 +103,24 @@ body {
 }
 
 .game-state {
+  font-size: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-left: 50px;
+  width: 300px;
 }
 
 #render {
+  -webkit-text-stroke: 2px black;
+  color: blue;
+  font-family: sawarabi mincho, sans-serif;
+  font-size: 115px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  margin-left: 0px;
 }
 
 .container {

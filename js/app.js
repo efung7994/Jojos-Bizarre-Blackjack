@@ -390,6 +390,7 @@ function checkBlackjack() {
 function checkCash() {
   if (cash === 0) {
     disableBet()
+    resetBetBtn.disabled = false
   }
 }
 
