@@ -21,6 +21,7 @@ let dealerHandEl = document.querySelector('#dealer-hand')
 let playerHandEl = document.querySelector('#player-hand')
 let playerSumEl = document.querySelector('#player-sum')
 let dealerSumEl = document.querySelector('#dealer-sum')
+let messageEl = document.querySelector('#message')
 //Buttons
 let startRoundEl = document.querySelector('#start')
 let nextRoundBtn = document.querySelector('#next-round')
@@ -79,6 +80,7 @@ function initRound() {
   nextRoundBtn.style.opacity = '0'
   menaceEl.style.opacity = '0'
   menaceEl.classList.remove('animate__animated', 'animate__shakeX')
+  messageEl.style.opacity = '0'
 }
 
 function init() {
@@ -110,6 +112,7 @@ function init() {
   checkGameOver()
   enableBet()
   resetBtnEl.style.opacity = '0'
+  messageEl.style.opacity = '0'
 }
 /*------------ Buttons for betting ------------*/
 function addMoneyToBet1() {
@@ -337,6 +340,7 @@ function determineWinner () {
     checkLose()
     bet = 0
   } else if (playerSum <= 21 && dealerSum > 21) {
+    checkWin()
     cash += bet * 1.5
     bet = 0
   }
@@ -416,4 +420,13 @@ function checkLose() {
   menaceEl.style.opacity = '1'
   menaceEl.classList.add('animate__animated', 'animate__shakeX' )
   menaceEl.style.setProperty('--animate-duration', '.5s')
+  messageEl.textContent = 'LOSE'
+  messageEl.style.color = 'blue'
+  messageEl.style.opacity = '1'
+}
+
+function checkWin() {
+  messageEl.textContent = 'WIN'
+  messageEl.style.color = 'red'
+  messageEl.style.opacity = '1'
 }
