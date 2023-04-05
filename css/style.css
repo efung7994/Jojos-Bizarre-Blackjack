@@ -5,20 +5,65 @@ body {
 }
 
 .buttons {
+  background: rgb(249,206,20);
+  background: linear-gradient(90deg, rgba(249,206,20,0.8646052170868348) 15%, rgba(224,25,222,0.8547794117647058) 83%);
   display: flex;
   flex-direction: row;
   border-radius: 5px;
-  border-style: solid;
+  border-style: ridge;
+  border-width: 10px;
+  border-color: rgb(70, 57, 57);
   justify-content: flex-start;
   width: 1171px;
-  height: 200px;
-  border-radius: 10px;
+  height: 220px;
 }
 
 .bet-btns {
   display: flex;
   flex-direction: column;
-  border-style: solid;
+  width: 120px;
+  align-items: center;
+}
+
+#dollars1{
+  border-radius: 50%;
+  border-width: 6px;
+  border-color: white;
+  background-color: red;
+  border-style: dashed;
+  height: 60px;
+  width: 50px;
+  margin-top: 5px;
+}
+
+#dollars5{
+  border-radius: 50%;
+  border-width: 6px;
+  border-color: white;
+  background-color: green;
+  border-style: dashed;
+  height: 60px;
+  width: 50px;
+  margin-top: 5px;
+}
+
+#dollars10{
+  border-radius: 50%;
+  border-width: 6px;
+  border-color: white;
+  background-color: orange;
+  border-style: dashed;
+  height: 60px;
+  width: 50px;
+  margin-top: 5px;
+}
+
+#dollars1:hover{
+  box-shadow: 10px 5px 5px gray;
+}
+
+#dollars1:active{
+  box-shadow: 0px 4px 5px gray;
 }
 
 .play-buttons {
@@ -49,8 +94,7 @@ body {
 
 .player-card-container {
   height: 250px;
-  border-radius: 5px;
-  border-style: solid;
+  border-radius: 0px;
   background-image: url('/css/assets/pics/blackjack table.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
