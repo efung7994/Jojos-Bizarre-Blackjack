@@ -74,13 +74,13 @@ function initRound() {
   dealerSum = 0
   enableBet()
   checkCash()
-  checkGameOver()
   resetBetBtn.disabled = false
   nextRoundBtn.disabled = true
   nextRoundBtn.style.opacity = '0'
   menaceEl.style.opacity = '0'
   menaceEl.classList.remove('animate__animated', 'animate__shakeX')
   messageEl.style.opacity = '0'
+  checkGameOver()
 }
 
 function init() {
@@ -112,7 +112,7 @@ function init() {
   checkGameOver()
   enableBet()
   resetBtnEl.style.opacity = '0'
-  messageEl.style.opacity = '0'
+  messageEl.style.opacity = '1'
 }
 /*------------ Buttons for betting ------------*/
 function addMoneyToBet1() {
@@ -226,9 +226,6 @@ setTimeout(roundStart, 2600)
 
 
 function drawCard() {
-  //check to see if player has blackjack
-  checkTie()
-  checkBlackjack()
   // Used to prevent error on click when no cards are left in deck 1
   if (deck.length > 0) {  
 
@@ -266,17 +263,13 @@ function drawCard() {
     } 
   }   
     playerSum += cardPullValue
+    checkLose()
+    checkTie()
+    checkBlackjack()
     if (playerSum === 21) {
       blackjack = true
     }
     playerSumEl.textContent = 'Player: ' + playerSum
-    if (playerSum > 21) {
-      bet = 0
-      checkLose()
-      nextRoundBtn.style.opacity = '1'
-      roundEnd()
-      renderBet()
-    }
     // Pass card picked to render function to display
 		renderPlayer(cardPicked)
   }
@@ -315,8 +308,8 @@ function dealerDrawCard() {
     }   
       dealerSum += cardPullValue
       checkTie()
-        roundEnd()
-        renderBet()
+      roundEnd()
+      renderBet()
       
       dealerSumEl.textContent = 'Dealer: ' + dealerSum
        // Pass card picked to render function to display
@@ -326,7 +319,7 @@ function dealerDrawCard() {
 
 function stand() {
   renderDealerRemoveFacedown()
-  while (playerSum >= dealerSum) {
+  while (playerSum >= dealerSum && dealerSum != 21) {
     dealerDrawCard()
   }
   determineWinner()
@@ -403,6 +396,7 @@ function checkGameOver() {
   gameOver = true
   resetBtnEl.disabled = false
   resetBtnEl.style.opacity = '1'
+  resetBetBtn.disabled = true
   }
 }
 
@@ -413,16 +407,25 @@ function checkTie () {
     bet = 0
     renderBet()
     roundEnd()
+    messageEl.textContent = 'DRAW'
+    messageEl.style.color = '#FBFCF8'
+    messageEl.style.opacity = '1'
   }
 }
 
 function checkLose() {
-  menaceEl.style.opacity = '1'
-  menaceEl.classList.add('animate__animated', 'animate__shakeX' )
-  menaceEl.style.setProperty('--animate-duration', '.5s')
-  messageEl.textContent = 'LOSE'
-  messageEl.style.color = 'blue'
-  messageEl.style.opacity = '1'
+  if (playerSum > 21) {
+    bet = 0
+    nextRoundBtn.style.opacity = '1'
+    roundEnd()
+    renderBet()
+    menaceEl.style.opacity = '1'
+    menaceEl.classList.add('animate__animated', 'animate__shakeX' )
+    menaceEl.style.setProperty('--animate-duration', '.5s')
+    messageEl.textContent = 'LOSE'
+    messageEl.style.color = 'blue'
+    messageEl.style.opacity = '1'
+  }
 }
 
 function checkWin() {

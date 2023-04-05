@@ -110,7 +110,7 @@ body {
   padding-left: 50px;
   width: 300px;
 }
-
+/* 115 */
 #render {
   -webkit-text-stroke: 2px black;
   color: blue;
@@ -120,7 +120,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-left: 0px;
 }
 
 .container {
