@@ -3,6 +3,27 @@ body {
   background-color: #696969;
   background-image: url('/css/assets/pics/jojoBG.jpeg');
   background-size: contain;
+  width: 1920px;
+}
+
+header {
+  background: rgb(249,206,20);
+  background: linear-gradient(90deg, rgba(249,206,20,0.8646052170868348) 15%, rgba(224,25,222,0.8547794117647058) 83%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-style:double;
+  border-width: 10px;
+}
+
+h1 {
+  margin: 10px 0 20px 0;
+  color: yellow;
+}
+
+h3 {
+  font-family: fredericka the great;
 }
 
 .buttons {
