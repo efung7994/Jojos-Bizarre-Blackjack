@@ -322,24 +322,9 @@ function stand() {
   while (playerSum >= dealerSum && dealerSum != 21) {
     dealerDrawCard()
   }
-  determineWinner()
+  checkWin()
+  checkLose()
   checkBlackjack()
-}
-
-function determineWinner () {
-  checkBlackjack()
-  checkTie()
-  if (dealerSum > playerSum && dealerSum < 21 || playerSum > 21 || dealerSum === 21){
-    checkLose()
-    bet = 0
-  } else if (playerSum <= 21 && dealerSum > 21) {
-    checkWin()
-    cash += bet * 1.5
-    bet = 0
-  }
-  roundEnd()
-  renderBet()
-  nextRoundBtn.style.opacity = '1'
 }
 
 
@@ -414,7 +399,7 @@ function checkTie () {
 }
 
 function checkLose() {
-  if (playerSum > 21) {
+  if (playerSum > 21 || dealerSum > playerSum && dealerSum <= 21) {
     bet = 0
     nextRoundBtn.style.opacity = '1'
     roundEnd()
@@ -429,7 +414,15 @@ function checkLose() {
 }
 
 function checkWin() {
-  messageEl.textContent = 'WIN'
-  messageEl.style.color = 'red'
-  messageEl.style.opacity = '1'
+  checkBlackjack()
+  if (playerSum <= 21 && dealerSum > 21) {
+    cash += bet * 1.5
+    bet = 0
+    nextRoundBtn.style.opacity = '1'
+    roundEnd()
+    renderBet()
+    messageEl.textContent = 'WIN'
+    messageEl.style.color = 'red'
+    messageEl.style.opacity = '1'
+  }
 }
