@@ -2,9 +2,9 @@
 const deal = new Audio('/css/assets/sounds/Deal.wav')
 const win = new Audio('/css/assets/sounds/win.wav')
 const start = new Audio('/css/assets/sounds/start.wav')
-start.volume = 0.7
+start.volume = 0.5
 const lose = new Audio('/css/assets/sounds/lose.wav')
-lose.volume = 0.5
+lose.volume = 0.3
 const retire = new Audio('/css/assets/sounds/retire.mp3')
 retire.volume = 0.5
 const nani = new Audio('/css/assets/sounds/nani.wav')
