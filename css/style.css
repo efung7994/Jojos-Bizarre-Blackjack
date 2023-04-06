@@ -26,6 +26,8 @@ h3 {
   font-family: fredericka the great;
 }
 
+
+/* <----------BUTTONS----------> */
 .buttons {
   background: rgb(249,206,20);
   background: linear-gradient(90deg, rgba(249,206,20,0.8646052170868348) 15%, rgba(224,25,222,0.8547794117647058) 83%);
@@ -55,7 +57,7 @@ h3 {
   background-color: red;
   border-style: dashed;
   height: 60px;
-  width: 50px;
+  width: 40%;
   margin-top: 5px;
 }
 
@@ -76,7 +78,7 @@ h3 {
   background-color: green;
   border-style: dashed;
   height: 60px;
-  width: 50px;
+  width: 40%;
   margin-top: 5px;
 }
 
@@ -97,7 +99,7 @@ h3 {
   background-color: orange;
   border-style: dashed;
   height: 60px;
-  width: 50px;
+  width: 40%;
   margin-top: 5px;
 }
 
@@ -228,6 +230,7 @@ h3 {
   border-style: groove;
 }
 
+/* <----------RENDERS----------> */
 .game-state {
   font-size: 30px;
   display: flex;
@@ -288,6 +291,9 @@ h3 {
   
 }
 
+
+
+/* <----------IMAGES----------> */
 #darby{
   display: inline;
   width: 20%;
@@ -309,13 +315,13 @@ h3 {
   display: flex;
   flex-direction: row;
   float:left;
-  width: 400px;
+  width: 10%;
 }
 #menacing2{
   display: flex;
   flex-direction: row;
   float: right;
-  width: 400px;
+  width: 10%;
 }
 
 
