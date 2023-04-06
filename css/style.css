@@ -3,7 +3,6 @@ body {
   background-color: #696969;
   background-image: url('/css/assets/pics/jojoBG.jpeg');
   background-size: contain;
-  width: 1920px;
 }
 
 header {
@@ -295,33 +294,41 @@ h3 {
 
 /* <----------IMAGES----------> */
 #darby{
-  display: inline;
-  width: 20%;
-  float: right;
+  display: flex;
   height: 500px;
+  align-self: center;
+  margin-left: 600px;
+  width: 420px;
 }
 
 #osiris{
-  float: left;
   height: 500px;
-  width: 365px;
+  align-self: center;
+  margin-right: 500px;
 }
 
-#menace-img{
+.image-wrap{
+  display: flex;
+}
+.left-side{
+  display: flex;
+  flex-direction: column;
+}
+
+.right-side{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.menace {
+  width: 30%;
   opacity: 0;
-  padding-top: 500px;
 }
-#menacing {
-  display: flex;
-  flex-direction: row;
-  float:left;
-  width: 10%;
-}
-#menacing2{
-  display: flex;
-  flex-direction: row;
-  float: right;
-  width: 10%;
+
+.menace2 {
+  width: 30%;
+  opacity: 0;
 }
 
 

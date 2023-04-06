@@ -45,7 +45,8 @@ let standButtonEl = document.querySelector('#stand-button')
 let hitButtonEl = document.querySelector('#hit-button')
 
 // Extra
-let menaceEl = document.querySelector('#menace-img')
+let menaceEl = document.querySelector('.menace')
+let menaceEl2 = document.querySelector('.menace2')
 
 /*--------- Event Listeners ---------*/
 resetBtnEl.addEventListener('click', init)
@@ -91,6 +92,8 @@ function initRound() {
   resetBtnEl.style.opacity = '0'
   menaceEl.style.opacity = '0'
   menaceEl.classList.remove('animate__animated', 'animate__shakeX')
+  menaceEl2.style.opacity = '0'
+  menaceEl2.classList.remove('animate__animated', 'animate__shakeX')
   messageEl.style.opacity = '0'
   checkGameOver()
 }
@@ -425,6 +428,9 @@ function checkLose() {
     menaceEl.style.opacity = '1'
     menaceEl.classList.add('animate__animated', 'animate__shakeX' )
     menaceEl.style.setProperty('--animate-duration', '.5s')
+    menaceEl2.style.opacity = '1'
+    menaceEl2.classList.add('animate__animated', 'animate__shakeX' )
+    menaceEl2.style.setProperty('--animate-duration', '.5s')
     messageEl.textContent = 'LOSE'
     messageEl.style.color = 'blue'
     messageEl.style.opacity = '1'
