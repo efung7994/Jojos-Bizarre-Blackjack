@@ -3,13 +3,13 @@
 # JoJo's Bizzare Blackjack
 ___
 ## Objective:
-Create a Blackjack game based on the Anime JoJo's Bizarre Adventure
+Create a Blackjack game based on the Anime JoJo's Bizarre Adventure.
 ___
 ## To Play the game:
-### Click [HERE](https://jojosbizarreblackjack.netlify.app/) to play the game
+### Click [HERE](https://jojosbizarreblackjack.netlify.app/) to play the game.
 ___
 ## Motivation:
-I wanted to create a blackjack game based on one of my favorite anime series. I remembered at the time that there was a gambler villain, D'arby, in the show and used him as inspiration for this game.
+I wanted to create a blackjack game based on one of my favorite anime series. I remember there was a villain named D'arby who was a gambler in the show. I used him as inspiration for this game.
 ___
 ## Technology Implemented:
 - JavaScript
