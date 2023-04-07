@@ -1,6 +1,6 @@
+# JoJo's Bizzare Blackjack
 ![gameinit](css/assets/pics/gameInit.png)
 ![gameinit](css/assets/pics/gamewin.png)
-# JoJo's Bizzare Blackjack
 ___
 ## Objective:
 Create a Blackjack game based on the Anime JoJo's Bizarre Adventure.
@@ -35,5 +35,5 @@ ___
 ___
 ## Future Features:
 - Add more villains and add abilities to them
-- Add a hold mechanic to bet buttons
-- Add win conditions
+- Make bet buttons holdable
+- Add mechanics to bankrupt dealer
